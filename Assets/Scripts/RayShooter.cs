@@ -34,8 +34,18 @@ public class RayShooter : MonoBehaviour
             RaycastHit hit;
             if(Physics.Raycast(ray, out hit))
             {
-                //Debug.Log("Hit " + hit.point);
-                StartCoroutine(SphereIndicator(hit.point));
+                GameObject hitObject = hit.transform.gameObject;
+                ReactiveTraget traget = hitObject.GetComponent<ReactiveTraget>();
+                if (traget != null)
+                {
+                    traget.ReactToHit();
+                    //Debug.Log("Traget hit!");
+                }
+                else
+                {
+                    StartCoroutine(SphereIndicator(hit.point));
+                }
+                
             }
         }
         
