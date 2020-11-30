@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class RayShooter : MonoBehaviour
 {
@@ -9,9 +10,9 @@ public class RayShooter : MonoBehaviour
     void Start()
     {
         _camera = GetComponent<Camera>();
-        Cursor.lockState = CursorLockMode.Locked;
+        /*Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
+        */
 
     }
 
@@ -27,7 +28,7 @@ public class RayShooter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             Vector3 point = new Vector3(_camera.pixelWidth / 2, _camera.pixelHeight / 2, 0);
             Ray ray = _camera.ScreenPointToRay(point);
