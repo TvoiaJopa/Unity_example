@@ -1,18 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsPopup : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private Slider speedSlider;
+
     void Start()
     {
-        
+        speedSlider.value = PlayerPrefs.GetFloat("speed", 1);
+        Messenger<float>.Broadcast(GameEvent.SPEED_CHANGED, PlayerPrefs.GetFloat("speed", 1));
+
+    }
+    public void Open()
+    {
+        gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Close()
     {
-        
+        gameObject.SetActive(false);
+    }
+
+    public void OnSubmitName(string name)
+    {
+        Debug.Log(name);
+    }
+
+    public void OnSpeedValue(float speed)
+    {
+        Messenger<float>.Broadcast(GameEvent.SPEED_CHANGED, speed);
+        PlayerPrefs.SetFloat("speed", speed);
+        Debug.Log("Speed: " + speed);
+
     }
 }

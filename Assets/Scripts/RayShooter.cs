@@ -40,6 +40,7 @@ public class RayShooter : MonoBehaviour
                 if (traget != null)
                 {
                     traget.ReactToHit();
+                    Messenger.Broadcast(GameEvent.ENEMY_HIT);
                     //Debug.Log("Traget hit!");
                 }
                 else
