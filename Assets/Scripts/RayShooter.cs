@@ -5,6 +5,9 @@ using UnityEngine.EventSystems;
 
 public class RayShooter : MonoBehaviour
 {
+    [SerializeField] private AudioSource soundSource;
+    [SerializeField] private AudioClip hitWallSound;
+    [SerializeField] private AudioClip hitEnemySound;
     private Camera _camera;
 
     void Start()
@@ -40,14 +43,16 @@ public class RayShooter : MonoBehaviour
                 if (traget != null)
                 {
                     traget.ReactToHit();
+                    soundSource.PlayOneShot(hitEnemySound);
                     Messenger.Broadcast(GameEvent.ENEMY_HIT);
                     //Debug.Log("Traget hit!");
                 }
                 else
                 {
                     StartCoroutine(SphereIndicator(hit.point));
+                    soundSource.PlayOneShot(hitWallSound);
                 }
-                
+
             }
         }
         
